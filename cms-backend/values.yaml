@@ -46,3 +46,4 @@ serviceAccount:
   create: false        # hoặc true nếu muốn tạo SA
   annotations: {}
   name: ""
+  # hoặc true nếu muốn tạo SA
