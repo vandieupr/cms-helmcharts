@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: 891920435433.dkr.ecr.ap-southeast-1.amazonaws.com/de000183-devops-cms-frontend
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "3"
 
 service:
   type: ClusterIP
