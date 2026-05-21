@@ -1,0 +1,43 @@
+replicaCount: 2
+
+image:
+  repository: 891920435433.dkr.ecr.ap-southeast-1.amazonaws.com/de000183-devops-cms-backend
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: "alb"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  hosts:
+    - host: ""
+      paths:
+        - path: /api
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+env:
+  DB_HOST: "de000183-devops-cms-postgres.chom4aao050k.ap-southeast-1.rds.amazonaws.com"
+  DB_PORT: "5432"
+  DB_NAME: "cmsdb"
+  DB_USER: "cmsadmin"
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
