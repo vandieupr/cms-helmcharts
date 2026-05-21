@@ -5,6 +5,21 @@ image:
   pullPolicy: IfNotPresent
   tag: "3"
 
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  automount: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+
 service:
   type: ClusterIP
   port: 80
@@ -21,6 +36,14 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+  tls: []
+
+httpRoute:
+  enabled: false
+  annotations: {}
+  hostnames: []
+  parentRefs: []
+  rules: []
 
 resources:
   requests:
@@ -30,8 +53,24 @@ resources:
     cpu: "500m"
     memory: "512Mi"
 
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
 hpa:
   enabled: true
   minReplicas: 2
   maxReplicas: 6
   targetCPUUtilizationPercentage: 70
+
+livenessProbe: {}
+readinessProbe: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+volumes: []
+volumeMounts: []
