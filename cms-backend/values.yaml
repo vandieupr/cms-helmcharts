@@ -1,26 +1,42 @@
-replicaCount: 2
+replicaCount: 1
 
 image:
-  repository: 891920435433.dkr.ecr.ap-southeast-1.amazonaws.com/de000183-devops-cms-backend
+  repository: ""
+  tag: "latest"
   pullPolicy: IfNotPresent
-  tag: "3"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  automount: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 80
 
 ingress:
-  enabled: true
-  className: "alb"
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-  hosts:
-    - host: ""
-      paths:
-        - path: /api
-          pathType: Prefix
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+httpRoute:
+  enabled: false
+  annotations: {}
+  hostnames: []
+  parentRefs: []
+  rules: []
 
 resources:
   requests:
@@ -30,22 +46,18 @@ resources:
     cpu: "500m"
     memory: "512Mi"
 
-env:
-  DB_HOST: "de000183-devops-cms-postgres.chom4aao050k.ap-southeast-1.rds.amazonaws.com"
-  DB_PORT: "5432"
-  DB_NAME: "cmsdb"
-  DB_USER: "cmsadmin"
-
-hpa:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 6
-  targetCPUUtilizationPercentage: 70
-
-serviceAccount:
-  create: false        # hoặc true nếu muốn tạo SA
-  annotations: {}
-  name: ""
-  # hoặc true nếu muốn tạo SA
-httpRoute:
+autoscaling:
   enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+livenessProbe: {}
+readinessProbe: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+volumes: []
+volumeMounts: []
