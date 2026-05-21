@@ -47,3 +47,5 @@ serviceAccount:
   annotations: {}
   name: ""
   # hoặc true nếu muốn tạo SA
+httpRoute:
+  enabled: false
