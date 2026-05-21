@@ -41,3 +41,8 @@ hpa:
   minReplicas: 2
   maxReplicas: 6
   targetCPUUtilizationPercentage: 70
+
+serviceAccount:
+  create: false        # hoặc true nếu muốn tạo SA
+  annotations: {}
+  name: ""
